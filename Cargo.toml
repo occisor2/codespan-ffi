@@ -1,0 +1,16 @@
+[package]
+name = "codespan-ffi"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+codespan-reporting = "0.13.0"
+libc = "0.2.177"
+
+[dev-dependencies]
+backtrace-on-stack-overflow = "0.3.0"
+unindent = "0.2.4"
+

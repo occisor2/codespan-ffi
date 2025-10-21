@@ -1,0 +1,46 @@
+* codespan-ffi
+
+A C api for the amazing [[https://github.com/brendanzab/codespan][codespan]] Rust crate.
+
+Most of the important features are implemented. Full style
+custimzation is not implemented yet.
+
+* How To Use
+
+The full api is defined in this [[./codespan.h][header file]]. It is very verbose and
+should be self explanatory; however, pay special attention to these:
+
+- Memory Management
+
+  Objects allocated by ~codespan_new_source_map~ and
+  ~codespan_new_diagnostic~ must be be deallocated by
+  ~codespan_delete_source_map~ and ~codespan_delete_diagnostic~.
+  
+- Character Encoding
+
+  All pointers to text buffers should point to valid UTF-8 encoded
+  data. Pointers to text buffers passed to callbacks will always point
+  to valid UTF-8 encoded data.
+  
+- CodespanSourceMap Callbacks
+
+  The CodespanSourceMap struct is intialized with various callbacks
+  corresponding to the methods defined in the [[https://docs.rs/codespan-reporting/latest/codespan_reporting/files/trait.Files.html][Files]] trait. Just like
+  in the trait, the ~line_number~ and ~line_column~ callbacks are
+  optional and can be null. Make sure to uphold any requirements
+  described in their documentation, else you may introduce undefined
+  behavior. Do any error checking required outside these callbacks
+  before calling ~codespan_write_diagnostic~.
+
+* Building
+
+You will need a rust toolchain installed to build.
+
+#+BEGIN_SRC: bash
+cargo build --release
+#+END_SRC
+
+The dynamic library will be ./target/release/
+
+
+
