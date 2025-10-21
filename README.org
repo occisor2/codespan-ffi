@@ -5,7 +5,7 @@ A C api for the amazing [[https://github.com/brendanzab/codespan][codespan]] Rus
 Most of the important features are implemented. Full style
 custimzation is not implemented yet.
 
-* How To Use
+** How To Use
 
 The full api is defined in this [[./codespan.h][header file]]. It is very verbose and
 should be self explanatory; however, pay special attention to these:
@@ -32,7 +32,12 @@ should be self explanatory; however, pay special attention to these:
   behavior. Do any error checking required outside these callbacks
   before calling ~codespan_write_diagnostic~.
 
-* Building
+  Text buffers returned by these callbacks are not copied internally.
+  The callbacks are triggered when calling
+  ~codespan_write_diagnostic~, so any memory returned needs to be
+  valid until this function returns.
+
+** Building
 
 You will need a rust toolchain installed to build.
 
@@ -40,7 +45,7 @@ You will need a rust toolchain installed to build.
 cargo build --release
 #+END_SRC
 
-The dynamic library will be ./target/release/
+The dynamic library will be placed under ./target/release/
 
 
 
